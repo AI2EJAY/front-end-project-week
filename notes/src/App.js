@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
+import axios from 'axios'
 
 import "./App.css";
 
 import SidePane from "./components/SidePane";
-import Notes from "./NoteData";
 import NotesView from "./components/NotesView";
 import SingleView from "./components/SingleView";
 import CreateNote from "./components/CreateNote";
@@ -29,6 +29,7 @@ const StyledApp = styled.div`
   }
 `;
 //=====================================
+const URL = "http://localhost:9000/notes"
 
 class App extends Component {
   state = {
@@ -39,8 +40,15 @@ class App extends Component {
     },
     count: 6
   };
+
   componentDidMount() {
-    this.setState({ notes: Notes });
+    
+    axios.get(URL).then(response => {
+      this.setState({
+        notes: response.data
+      });
+      console.log(this.state.notes)
+    });
   }
 
   handleInput = ({ target }) => {
