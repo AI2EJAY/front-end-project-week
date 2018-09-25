@@ -120,6 +120,7 @@ class App extends Component {
               {...props}
               editNote={this.editNote}
               notes={this.state.notes}
+              
             />
           )}
         />

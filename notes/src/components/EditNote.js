@@ -97,16 +97,26 @@ class EditNote extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    let note = this.props.notes.filter(note => id === note.id.toString());
-    note = note[0];
-    this.setState({
-      newNote: {
-        title: note.title,
-        contents: note.contents
-      }
+    axios.get(`${URL}/${id}`).then(response => {
+      this.setState({
+        note: response.data
+      });
     });
   }
 
+  componentWillMount() {
+    const { id } = this.props.match.params;
+
+    let item = JSON.parse(localStorage.getItem([0]));
+    console.log(item);
+
+    this.setState({
+      newNote: {
+        title: item.title,
+        contents: item.contents
+      }
+    });
+  }
 
   toggleRedirect = () => {
     this.setState({
@@ -118,7 +128,7 @@ class EditNote extends Component {
     return (
       <StyledViewWrapper>
         {this.state.Redirect ? (
-          <Redirect to={`/note/${this.props.match.params.id}`} />
+          <Redirect to={'/'} />
         ) : null}
         <h2>Edit Note:</h2>
 

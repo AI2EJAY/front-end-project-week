@@ -7,7 +7,6 @@ const StyledNoteContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  
 `;
 
 const StyledViewWrapper = styled.div`
@@ -15,8 +14,8 @@ const StyledViewWrapper = styled.div`
   flex-direction: column;
   padding-left: 30px;
   padding-right: 30px;
-  width: 80%;
-  margin: 0 auto;
+  width: 60%;
+
   h2 {
     padding-top: 25px;
   }
@@ -49,6 +48,10 @@ class SingleView extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios.get(`${URL}/${id}`).then(response => {
+      const {title, contents} = response.data
+     const item = { title, contents };
+      localStorage.setItem([0], JSON.stringify(item));
+      
       this.setState({
         note: response.data
       });
