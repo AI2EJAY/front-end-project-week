@@ -46,7 +46,6 @@ class App extends Component {
       this.setState({
         notes: response.data
       });
-      console.log(this.state.notes);
     });
   }
 
@@ -76,11 +75,11 @@ class App extends Component {
       });
   };
 
-  editNote = (newNote, id, push) => {
-
-    // axios
-    //   .put(`${URL}/${id}`, { title, contents })
-    //   .then(response => response.data);
+  editNote = (newNote, id) => {
+    const { title, contents } = newNote;
+    axios
+      .put(`${URL}/${id}`, { title: title, contents: contents })
+      .then(response => response.data);
   };
 
   deleteNote = id => {

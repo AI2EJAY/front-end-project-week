@@ -6,6 +6,8 @@ import axios from "axios";
 const StyledNoteContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  
 `;
 
 const StyledViewWrapper = styled.div`
@@ -13,6 +15,8 @@ const StyledViewWrapper = styled.div`
   flex-direction: column;
   padding-left: 30px;
   padding-right: 30px;
+  width: 80%;
+  margin: 0 auto;
   h2 {
     padding-top: 25px;
   }
@@ -44,7 +48,15 @@ class SingleView extends Component {
   }
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(`${URL}/${id}`)
+    axios.get(`${URL}/${id}`).then(response => {
+      this.setState({
+        note: response.data
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    const { id } = this.props.match.params;
     axios.get(`${URL}/${id}`).then(response => {
       this.setState({
         note: response.data
@@ -54,23 +66,27 @@ class SingleView extends Component {
 
   render() {
     return (
-        <StyledViewWrapper>
-          <NoteOptions>
-            <Link className="edit noDecoration" to={`/edit/${this.state.note.id}`}>
-              Edit
-            </Link>
-            <Link className="delete noDecoration" to={`/note/${this.state.note.id}/delete`}>
-              Delete
-            </Link>
-          </NoteOptions>
+      <StyledViewWrapper>
+        <NoteOptions>
+          <Link
+            className="edit noDecoration"
+            to={`/edit/${this.state.note.id}`}
+          >
+            Edit
+          </Link>
+          <Link
+            className="delete noDecoration"
+            to={`/note/${this.state.note.id}/delete`}
+          >
+            Delete
+          </Link>
+        </NoteOptions>
 
-          <StyledNoteContainer>
-            <h2>{this.state.note.title}</h2>
-            {/* <h5>{note.tags}</h5> */}
-            <p>{this.state.note.contents}</p>
-          </StyledNoteContainer>
-        </StyledViewWrapper>
-     
+        <StyledNoteContainer>
+          <h2>{this.state.note.title}</h2>
+          <p>{this.state.note.contents}</p>
+        </StyledNoteContainer>
+      </StyledViewWrapper>
     );
   }
 }

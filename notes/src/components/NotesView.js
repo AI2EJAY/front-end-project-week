@@ -27,12 +27,11 @@ class NotesView extends Component {
     };
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     axios.get(URL).then(response => {
       this.setState({
         notes: response.data
       });
-      console.log(this.state.notes);
     });
   }
 
@@ -42,7 +41,6 @@ class NotesView extends Component {
       this.setState({
         notes: response.data,
       });
-      console.log(this.state.notes);
     });
   }
 
