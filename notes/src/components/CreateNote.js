@@ -95,13 +95,13 @@ class CreateNote extends Component {
             value={this.props.newNote.title}
           />
           <textarea
-            name="body"
+            name="contents"
             rows="15"
             cols="60"
             placeholder="Note Content"
             onChange={this.props.handleInput}
             className="input input-content"
-            value={this.props.newNote.body}
+            value={this.props.newNote.contents}
           />
           <Button
             onClick={() => {

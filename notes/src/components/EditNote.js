@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import axios from 'axios'
 
 const StyledViewWrapper = styled.div`
   display: flex;
@@ -77,10 +78,11 @@ class EditNote extends Component {
     super(props);
     this.state = {
       Redirect: false,
+      note: [],
       newNote: {
         title: "",
         tags: "",
-        body: "",
+        contents: "",
         id: null
       }
     };
@@ -93,18 +95,24 @@ class EditNote extends Component {
   };
 
   componentDidMount() {
-    const id = this.props.match.params.id;
-    let note = this.props.notes.filter(note => id === note.id.toString());
-    note = note[0];
-    this.setState({
-      newNote: {
-        title: note.title,
-        body: note.body,
-        id: note.id,
-        tags: note.tags
-      }
+    const { id } = this.props.match.params;
+    console.log(`${URL}/${id}`)
+    axios.get(`${URL}/${id}`).then(response => {
+      this.setState({
+        note: response.data
+      });
     });
   }
+
+  // componentDidUpdate() {
+  //   const { id } = this.props.match.params;
+  //   console.log(`${URL}/${id}`)
+  //   axios.get(`${URL}/${id}`).then(response => {
+  //     this.setState({
+  //       note: response.data
+  //     });
+  //   });
+  // }
 
 //   toggleRedirect = () => {
 //     this.setState({
@@ -135,13 +143,13 @@ class EditNote extends Component {
             value={this.state.newNote.title}
           />
           <textarea
-            name="body"
+            name="contents"
             rows="15"
             cols="60"
             placeholder="Note Content"
             onChange={this.handleInput}
             className="input input-content"
-            value={this.state.newNote.body}
+            value={this.state.newNote.contents}
           />
           <Button
             onClick={() => {

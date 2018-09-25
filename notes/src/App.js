@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 import "./App.css";
 
@@ -29,55 +29,52 @@ const StyledApp = styled.div`
   }
 `;
 //=====================================
-const URL = "http://localhost:9000/notes"
+const URL = "http://localhost:9000/notes";
 
 class App extends Component {
   state = {
     notes: [],
     newNote: {
       title: "",
-      body: ""
+      contents: ""
     },
     count: 6
   };
 
-  componentDidMount() {
-    
+  componentWillMount() {
     axios.get(URL).then(response => {
       this.setState({
-        notes: response.data
+        notes: response.data,
       });
-      console.log(this.state.notes)
+      console.log(this.state.notes);
     });
   }
+
 
   handleInput = ({ target }) => {
     this.setState(prevState => ({
       newNote: { ...prevState.newNote, [target.name]: target.value }
     }));
   };
-  
-//addNote does this thing about this
+
+  //addNote does this thing about this
 
   addNote = event => {
-    const newNotes = this.state.newNote;
-    const count = ++this.state.count;
-    const notes = this.state.notes.slice();
-    notes.push({
-      id: count,
-      title: newNotes.title,
-      body: newNotes.body
-    });
-    this.setState({
-      notes,
-      count,
-      newNote: {
-        body: "",
-        title: ""
-      }
-    });
-    const str = JSON.stringify(notes);
-    localStorage.setItem("notes", str);
+    const { title, contents } = this.state.newNote;
+    axios
+      .post(URL, {
+        title,
+        contents
+      })
+      .then(response => {
+        this.setState({
+          notes: response.data,
+          newNote: {
+            title: "",
+            contents: ""
+          }
+        });
+      });
   };
 
   editNote = (newNote, id, push) => {
@@ -89,7 +86,7 @@ class App extends Component {
     this.setState({
       notes,
       newNote: {
-        body: "",
+        contents: "",
         title: ""
       }
     });
