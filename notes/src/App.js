@@ -77,20 +77,10 @@ class App extends Component {
   };
 
   editNote = (newNote, id, push) => {
-    const notes = this.state.notes.map(note => {
-      if (note.id === Number(id)) return newNote;
-      return note;
-    });
 
-    this.setState({
-      notes,
-      newNote: {
-        contents: "",
-        title: ""
-      }
-    });
-    console.log("notes in editNote in App: ", notes);
-    push("/");
+    // axios
+    //   .put(`${URL}/${id}`, { title, contents })
+    //   .then(response => response.data);
   };
 
   deleteNote = id => {

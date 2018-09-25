@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 const StyledViewWrapper = styled.div`
   display: flex;
@@ -83,7 +83,7 @@ class EditNote extends Component {
       newNote: {
         title: "",
         // tags: "",
-        contents: "",
+        contents: ""
         // id: null
       }
     };
@@ -97,7 +97,7 @@ class EditNote extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(`${URL}/${id}`)
+    console.log(`${URL}/${id}`);
     axios.get(`${URL}/${id}`).then(response => {
       this.setState({
         note: response.data
@@ -106,9 +106,12 @@ class EditNote extends Component {
   }
 
   componentDidUpdate() {
-    const { id } = this.props.match.params; 
-    const {title, contents} = this.state.newNote
-   axios.put(`${URL}/${id}`, {title, contents})
+
+    const { id } = this.props.match.params;
+    const { title, contents } = this.state.newNote;
+    axios
+      .put(`${URL}/${id}`, { title, contents })
+      .then(response => response.data);
   }
 
   toggleRedirect = () => {
@@ -118,7 +121,7 @@ class EditNote extends Component {
   };
 
   render() {
-      console.log("push", this.props)
+    console.log("push", this.props);
     return (
       <StyledViewWrapper>
         {this.state.Redirect ? (
@@ -128,7 +131,7 @@ class EditNote extends Component {
 
         <StyledForm
           onSubmit={() => {
-            this.props.editNote(this.state.newNote, this.props.match.params.id, this.props.history.push);
+            this.props.editNote(this.state.newNote, this.props.match.params.id);
             this.toggleRedirect();
           }}
         >
@@ -150,8 +153,11 @@ class EditNote extends Component {
           />
           <Button
             onClick={() => {
-              this.props.editNote(this.state.newNote, this.props.match.params.id, this.props.history.push);
-              
+              this.props.editNote(
+                this.state.newNote,
+                this.props.match.params.id
+              );
+              this.toggleRedirect();
             }}
           >
             Update
