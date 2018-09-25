@@ -101,7 +101,6 @@ class App extends Component {
     let notes = this.state.notes.slice();
     let notesAfterDelete = notes.filter(note => note.id !== Number(id));
     this.setState({ notes: notesAfterDelete });
-    console.log(this.state.notes);
     push("/");
   };
   render() {

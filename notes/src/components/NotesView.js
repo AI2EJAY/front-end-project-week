@@ -24,7 +24,7 @@ const NotesView = (props) => {
         <h2>Your Notes:</h2>
         <StyledNoteContainer>
           {props.notes.map(note => (
-            <Note id={note.id} title={note.title} body={note.body} tags={note.tags} />
+            <Note id={note.id} title={note.title} body={note.contents} tags={note.tags} />
           ))}
         </StyledNoteContainer>
       </StyledViewWrapper>
