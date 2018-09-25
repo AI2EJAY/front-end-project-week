@@ -72,6 +72,7 @@ const Button = styled.div`
     color: white;
   }
 `;
+const URL = "http://localhost:9000/notes";
 
 class EditNote extends Component {
   constructor(props) {
@@ -81,9 +82,9 @@ class EditNote extends Component {
       note: [],
       newNote: {
         title: "",
-        tags: "",
+        // tags: "",
         contents: "",
-        id: null
+        // id: null
       }
     };
   }
@@ -104,21 +105,17 @@ class EditNote extends Component {
     });
   }
 
-  // componentDidUpdate() {
-  //   const { id } = this.props.match.params;
-  //   console.log(`${URL}/${id}`)
-  //   axios.get(`${URL}/${id}`).then(response => {
-  //     this.setState({
-  //       note: response.data
-  //     });
-  //   });
-  // }
+  componentDidUpdate() {
+    const { id } = this.props.match.params; 
+    const {title, contents} = this.state.newNote
+   axios.put(`${URL}/${id}`, {title, contents})
+  }
 
-//   toggleRedirect = () => {
-//     this.setState({
-//       Redirect: !this.state.Redirect
-//     });
-//   };
+  toggleRedirect = () => {
+    this.setState({
+      Redirect: !this.state.Redirect
+    });
+  };
 
   render() {
       console.log("push", this.props)
@@ -132,7 +129,7 @@ class EditNote extends Component {
         <StyledForm
           onSubmit={() => {
             this.props.editNote(this.state.newNote, this.props.match.params.id, this.props.history.push);
-            // this.toggleRedirect();
+            this.toggleRedirect();
           }}
         >
           <input

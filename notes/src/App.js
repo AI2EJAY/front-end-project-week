@@ -44,12 +44,11 @@ class App extends Component {
   componentWillMount() {
     axios.get(URL).then(response => {
       this.setState({
-        notes: response.data,
+        notes: response.data
       });
       console.log(this.state.notes);
     });
   }
-
 
   handleInput = ({ target }) => {
     this.setState(prevState => ({
@@ -94,12 +93,12 @@ class App extends Component {
     push("/");
   };
 
-  deleteNote = (id, push) => {
-    let notes = this.state.notes.slice();
-    let notesAfterDelete = notes.filter(note => note.id !== Number(id));
-    this.setState({ notes: notesAfterDelete });
-    push("/");
+  deleteNote = id => {
+    axios
+      .delete(`${URL}/${id}`, this.state.newNote)
+      .then(response => response.data);
   };
+
   render() {
     return (
       <StyledApp>
