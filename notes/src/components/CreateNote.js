@@ -79,6 +79,13 @@ class CreateNote extends Component {
       Redirect: !this.state.Redirect
     });
   };
+  onEnterPress = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.props.addNote();
+      this.toggleRedirect();
+    }
+  };
 
   render() {
     return (
@@ -95,6 +102,7 @@ class CreateNote extends Component {
             value={this.props.newNote.title}
           />
           <textarea
+            onKeyDown={this.onEnterPress}
             name="contents"
             rows="15"
             cols="60"

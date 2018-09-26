@@ -124,12 +124,18 @@ class EditNote extends Component {
     });
   };
 
+  onEnterPress = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.props.editNote(this.state.newNote, this.props.match.params.id);
+      this.toggleRedirect();
+    }
+  };
+
   render() {
     return (
       <StyledViewWrapper>
-        {this.state.Redirect ? (
-          <Redirect to={'/'} />
-        ) : null}
+        {this.state.Redirect ? <Redirect to={"/"} /> : null}
         <h2>Edit Note:</h2>
 
         <StyledForm
@@ -146,6 +152,7 @@ class EditNote extends Component {
             value={this.state.newNote.title}
           />
           <textarea
+            onKeyDown={this.onEnterPress}
             name="contents"
             rows="15"
             cols="60"
