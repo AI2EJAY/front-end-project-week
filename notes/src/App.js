@@ -29,7 +29,7 @@ const StyledApp = styled.div`
   }
 `;
 //=====================================
-const URL = "http://localhost:9000/notes";
+const URL = "https://justin-hammett-back-end.herokuapp.com/notes";
 
 class App extends Component {
   state = {
