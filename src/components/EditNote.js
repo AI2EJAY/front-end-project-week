@@ -105,7 +105,6 @@ class EditNote extends Component {
   }
 
   componentWillMount() {
-    const { id } = this.props.match.params;
 
     let item = JSON.parse(localStorage.getItem([0]));
     console.log(item);

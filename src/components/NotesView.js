@@ -17,8 +17,7 @@ const StyledViewWrapper = styled.div`
     padding-top: 25px;
   }
 `;
-URL = "https://justin-hammett-back-end.herokuapp.com/notes";
-
+const URL = "https://justin-hammett-back-end.herokuapp.com/notes";
 
 class NotesView extends Component {
   constructor(props) {

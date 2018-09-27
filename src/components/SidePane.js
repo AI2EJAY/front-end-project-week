@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavContainer = styled.div`
   background-color: #d2d1d2;
