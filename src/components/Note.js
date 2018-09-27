@@ -33,7 +33,6 @@ const NoteContainer = styled.div`
   p {
     text-align: center;
     margin-top: 5px;
-    line-height: 16.6px;
     max-height: 130px;
     font-size: 14px;
     word-wrap: break-word;
@@ -41,18 +40,19 @@ const NoteContainer = styled.div`
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 8; /* number of lines to show */
+    -webkit-line-clamp: 8;
+    line-height: 16.6px;
   }
 `;
 
 const Note = props => {
   return (
-    <Link className="noDecoration" to={`/note/${props.id}`}>
-      <NoteContainer>
-        <h3>{props.title}</h3>
-        <p>{props.body}</p>
-      </NoteContainer>
-    </Link>
+      <Link className="noDecoration" to={`/note/${props.id}`}>
+        <NoteContainer>
+          <h3>{props.title}</h3>
+          <p>{props.body}</p>
+        </NoteContainer>
+      </Link>
   );
 };
 

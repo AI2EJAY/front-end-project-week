@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import axios from "axios"
+import axios from "axios";
 
 import Note from "./Note";
 
@@ -19,11 +19,12 @@ const StyledViewWrapper = styled.div`
 `;
 URL = "https://justin-hammett-back-end.herokuapp.com/notes";
 
+
 class NotesView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes : []
+      notes: []
     };
   }
 
@@ -35,11 +36,10 @@ class NotesView extends Component {
     });
   }
 
-  
   componentDidMount() {
     axios.get(URL).then(response => {
       this.setState({
-        notes: response.data,
+        notes: response.data
       });
     });
   }
